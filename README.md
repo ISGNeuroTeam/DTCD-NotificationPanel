@@ -52,9 +52,10 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 Also you can see the [CHANGELOG](CHANGELOG.md) file.
 
+
 ## Authors
 
-- Vitaliy Kalinovskiy (vkalinovskiy@isgneuro.com)
+- Vitaliy Kalinovskiy (vkalinovskiy@isgneuro.com) 
 
 ## License
 
