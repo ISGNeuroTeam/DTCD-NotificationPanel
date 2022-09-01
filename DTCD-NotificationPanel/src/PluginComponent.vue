@@ -147,6 +147,7 @@ export default {
       color: #2c67a6;
       min-width: 280px;
       position: relative;
+      min-height: 20px;
 
       &::before {
         content: 'i';
