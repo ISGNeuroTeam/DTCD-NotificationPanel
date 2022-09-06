@@ -6,8 +6,14 @@
         class="clear-btn"
         @click.prevent="$root.notificationSystem.clearList()"
       >
-        Close all notifications
+        Удалить все
       </base-button>
+      <div
+        v-if="notificationList.length === 0"
+        class="empty-text"
+      >
+        Уведомлений нет
+      </div>
       <div
         v-for="{ title, body, className, id, hasAction } of notificationList"
         :key="id"
@@ -126,6 +132,12 @@ export default {
 
   .clear-btn {
     margin: 8px 8px 0 8px;
+  }
+
+  .empty-text {
+    padding: 32px 16px;
+    text-align: center;
+    color: var(--text_secondary)
   }
 
   .notification {
