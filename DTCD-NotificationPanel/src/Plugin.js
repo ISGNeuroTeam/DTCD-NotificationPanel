@@ -16,10 +16,6 @@ export class NotificationPanel extends PanelPlugin {
 
   constructor(guid, selector) {
     super();
-    console.log(
-      `%c[!]%c - NotificationPanel: ${guid} ${selector}`,
-      'font-weight: bold; color: yellow;','',
-    );
     this.#guid = guid;
     this.#logSystem = new LogSystemAdapter('0.5.0', guid, pluginMeta.name);
     this.#logSystem.info('Initializing system');
