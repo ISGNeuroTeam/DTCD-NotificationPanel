@@ -5,6 +5,7 @@
         :disabled="notificationList.length === 0"
         class="clear-btn"
         @click.prevent="$root.notificationSystem.clearList()"
+        theme="theme_blueSec"
       >
         Удалить все
       </base-button>
@@ -20,24 +21,34 @@
         class="notification-item"
         :class="className"
       >
-        <a
-          href="#"
-          class="close-btn"
-          @click.prevent="$root.notificationSystem.remove(id)"
-        >✕</a>
+        <span 
+          @click.prevent="$root.notificationSystem.remove(id)" 
+          class="FontIcon name_closeBig size_xs close-btn"
+          >
+        </span>
         <div
+          v-if="title" 
           class="title"
           :class="{
             'has-action': hasAction,
           }"
           @click.prevent="onClick(id)"
-        >{{ title }}</div>
+        >
+          <vue-show-more-text
+            :text="title"
+            :lines="1"
+            additional-container-css="padding:0;display:flex;margin-right:18px;"
+            additional-anchor-css="color:transparent;padding:0;position:absolute;right:0;width:100%;height:100%;"
+          />
+        </div>
         <div v-if="body" class="body-text">
           <vue-show-more-text
             :text="body"
             :lines="4"
+            more-text="Show"
+            less-text="Hide"
             additional-container-css="padding:0;"
-            additional-anchor-css="padding:8px 8px 0 8px;"
+            additional-anchor-css="color: var(--text_secondary);margin-bottom:0;padding:10px 0 0;"
           />
         </div>
       </div>
@@ -129,35 +140,46 @@ export default {
 
 <style lang="scss" scoped>
 .PluginComponent {
+  font-family: "Proxima Nova";
+
+  &,
+  *,
+  *::after,
+  *::before {
+    box-sizing: border-box;
+  }
 
   .clear-btn {
-    margin: 8px 8px 0 8px;
+    margin-top: 10px;
+    width: 80%;
   }
 
   .empty-text {
     padding: 32px 16px;
     text-align: center;
-    color: var(--text_secondary)
+    color: var(--text_main);
   }
 
   .notification {
     &-list {
-      font-family: "Proxima Nova";
-      position: fixed;
-      right: 0;
-      top: 20px;
-      max-height: calc(100% - 20px - 10px);
-      overflow-y: scroll;
+      background-color: var(--background_secondary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: 1px 1px 12px rgb(8 18 55 / 12%);
+      max-height: 700px;
+      overflow-y: auto;
       overflow-x: unset;
+      width: 360px;
+      margin-right: -8px;
     }
+
     &-item {
-      margin: 8px;
-      padding: 8px 8px 8px 30px;
-      background: #f5f3fa;
-      border-radius: 10px;
+      margin: 6px;
+      padding: 10px;
+      background: var(--border_12);
+      border-radius: 8px;
       border: 1px solid;
-      color: #2c67a6;
-      min-width: 280px;
+      color: var(--accent);
       position: relative;
       min-height: 20px;
 
@@ -170,63 +192,71 @@ export default {
         position: absolute;
         left: 0;
         top: 0;
-        margin: 8px;
+        margin: 10px;
         text-align: center;
         font-size: 11px;
-        font-weight: bold;
-        line-height: 18px;
+        font-weight: 700;
+        line-height: 1.6;
       }
 
       .close-btn {
         position: absolute;
         right: 0;
         top: 0;
-        margin: 6px 8px;
+        margin: 8px;
         text-decoration: none;
-        color: var(--divider);
-        font-size: 20px;
+        cursor: pointer;
 
         &:hover {
           color: var(--text_main);
         }
       }
 
-      .has-action {
-        cursor: pointer;
+      .title {
+        font-weight: 700;
+        font-size: 16px;
+        position: relative;
+        margin: 0 18px 0 24px;
       }
 
-      .title {
-        font-weight: bold;
-        &.has-action:hover {
-          text-decoration: underline;
-        }
-      }
       .body-text {
         margin-top: 8px;
+        font-size: 14px;
         color: var(--text_main);
       }
 
-      &.info {}
       &.success {
         color: var(--success);
+
         &::before {
           content: '✓';
         }
       }
+
       &.warning {
         color: var(--warning);
+
         &::before {
           content: '!';
         }
       }
+
       &.error {
         color: var(--danger);
+
         &::before {
-          content: '✕';
+          content: 'X';
           background: var(--danger);
-          color: white;
+          color: var(--border_12);
+          border: 1px solid var(--danger);
         }
       }
+    }
+  }
+  .FontIcon {
+
+    &.name_closeBig {
+      color: var(--border);
     }
   }
 }
