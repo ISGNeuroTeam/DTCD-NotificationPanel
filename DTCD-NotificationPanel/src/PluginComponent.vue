@@ -150,8 +150,8 @@ export default {
   }
 
   .clear-btn {
-    margin-top: 10px;
-    width: 80%;
+    width: 100%;
+    padding: 10px;
   }
 
   .empty-text {
