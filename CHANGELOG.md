@@ -7,9 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [UNRELEASED]
 
+### Added
+
+- method for adding status icons
+
 ### Changed
 
 - design of notifications
+- text icons to font icons
 
 ## [0.2.0]
 
