@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - design of notifications
 - text icons to font icons
+- padding for deletes all notifications button
 
 ## [0.2.0]
 
