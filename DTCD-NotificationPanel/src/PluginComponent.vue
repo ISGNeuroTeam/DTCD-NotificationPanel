@@ -173,7 +173,7 @@ export default {
 
   .clear-btn {
     width: 100%;
-    padding: 10px;
+    padding: 10px 10px 4px;
   }
 
   .empty-text {
