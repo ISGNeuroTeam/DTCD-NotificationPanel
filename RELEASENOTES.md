@@ -1,3 +1,9 @@
+# [0.3.0] - 2022-09-30
+
+### Changed
+
+- Design of notifications
+
 # [0.2.0] - 2022-09-12
 
 ### Added

@@ -5,6 +5,7 @@
         :disabled="notificationList.length === 0"
         class="clear-btn"
         @click.prevent="$root.notificationSystem.clearList()"
+        theme="theme_blueSec"
       >
         Удалить все
       </base-button>
@@ -20,24 +21,42 @@
         class="notification-item"
         :class="className"
       >
-        <a
-          href="#"
-          class="close-btn"
-          @click.prevent="$root.notificationSystem.remove(id)"
-        >✕</a>
+        <span 
+          class="FontIcon FrontIcon"
+          :class="getIcon(className)"
+        >
+        </span>
+        <span 
+          @click.prevent="$root.notificationSystem.remove(id)" 
+          class="FontIcon name_closeBig size_md close-btn"
+          >
+        </span>
         <div
+          v-if="title" 
           class="title"
           :class="{
             'has-action': hasAction,
           }"
           @click.prevent="onClick(id)"
-        >{{ title }}</div>
-        <div v-if="body" class="body-text">
+        >
+          <vue-show-more-text
+            :text="title"
+            :lines="1"
+            additional-container-css="padding:0;display:flex;margin-right:18px;"
+            additional-anchor-css="color:transparent;padding:0;position:absolute;right:0;width:100%;height:100%;"
+          />
+        </div>
+        <div 
+          v-if="body" 
+          class="body-text"
+        >
           <vue-show-more-text
             :text="body"
             :lines="4"
+            more-text="Show"
+            less-text="Hide"
             additional-container-css="padding:0;"
-            additional-anchor-css="padding:8px 8px 0 8px;"
+            additional-anchor-css="color: var(--text_secondary);margin-bottom:0;padding:10px 0 0;"
           />
         </div>
       </div>
@@ -57,6 +76,12 @@ export default {
   }}) {
     return {
       notifications,
+      classes: {
+        'success':'name_circleCheckOutline',
+        'warning': 'name_warningOutline',
+        'error': 'name_offOutlineClose',
+        'info': 'name_infoCircleOutline'
+      },
     }
   },
   computed: {
@@ -80,6 +105,14 @@ export default {
         this.notifications[idx].options = options;
       } else {
         this.notifications.push({ title, body, options });
+      }
+    },
+
+    getIcon(className) {
+      if (Object.keys(this.classes).includes(className)) {
+        return this.classes[className]
+      } else {
+        return 'name_infoCircleOutline'
       }
     },
 
@@ -129,104 +162,120 @@ export default {
 
 <style lang="scss" scoped>
 .PluginComponent {
+  font-family: "Proxima Nova";
+
+  &,
+  *,
+  *::after,
+  *::before {
+    box-sizing: border-box;
+  }
 
   .clear-btn {
-    margin: 8px 8px 0 8px;
+    width: 100%;
+    padding: 10px;
   }
 
   .empty-text {
     padding: 32px 16px;
     text-align: center;
-    color: var(--text_secondary)
+    color: var(--text_main);
   }
 
   .notification {
     &-list {
-      font-family: "Proxima Nova";
-      position: fixed;
-      right: 0;
-      top: 20px;
-      max-height: calc(100% - 20px - 10px);
-      overflow-y: scroll;
+      background-color: var(--background_secondary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: 1px 1px 12px rgb(8 18 55 / 12%);
+      max-height: 700px;
+      overflow-y: auto;
       overflow-x: unset;
+      width: 360px;
+      margin-right: -8px;
     }
+
     &-item {
-      margin: 8px;
-      padding: 8px 8px 8px 30px;
-      background: #f5f3fa;
-      border-radius: 10px;
+      margin: 6px;
+      padding: 10px;
+      background: var(--border_12);
+      border-radius: 8px;
       border: 1px solid;
-      color: #2c67a6;
-      min-width: 280px;
+      color: var(--accent);
       position: relative;
       min-height: 20px;
 
-      &::before {
-        content: 'i';
-        width: 18px;
-        height: 18px;
-        border: 1px solid;
-        border-radius: 50%;
+      .FrontIcon {
         position: absolute;
         left: 0;
         top: 0;
-        margin: 8px;
-        text-align: center;
-        font-size: 11px;
-        font-weight: bold;
-        line-height: 18px;
+        margin: 10px;
+        display: flex;
+        font-size: 18px;
+        align-items: center;
       }
 
       .close-btn {
         position: absolute;
         right: 0;
         top: 0;
-        margin: 6px 8px;
+        margin: 10px;
         text-decoration: none;
-        color: var(--divider);
-        font-size: 20px;
+        cursor: pointer;
 
         &:hover {
           color: var(--text_main);
         }
       }
 
-      .has-action {
-        cursor: pointer;
+      .title {
+        font-weight: 700;
+        font-size: 16px;
+        position: relative;
+        margin: 0 18px 0 21px;
       }
 
-      .title {
-        font-weight: bold;
-        &.has-action:hover {
-          text-decoration: underline;
-        }
-      }
       .body-text {
         margin-top: 8px;
+        font-size: 14px;
         color: var(--text_main);
       }
 
-      &.info {}
       &.success {
         color: var(--success);
-        &::before {
-          content: '✓';
+
+        .FontIcon {
+          &.name_circleCheckOutline {
+            color: var(--success);
+          }   
         }
       }
+
       &.warning {
         color: var(--warning);
-        &::before {
-          content: '!';
+
+        .FontIcon {
+          &.name_warningOutline {
+            color: var(--warning);
+          }   
         }
       }
+
       &.error {
         color: var(--danger);
-        &::before {
-          content: '✕';
-          background: var(--danger);
-          color: white;
+
+        .FontIcon {
+          &.name_offOutlineClose {
+            color: var(--danger);
+          }
         }
       }
+    }
+  }
+  .FontIcon {
+
+    &.name_closeBig {
+      color: var(--border);
     }
   }
 }
