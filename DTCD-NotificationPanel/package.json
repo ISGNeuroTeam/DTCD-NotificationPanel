@@ -1,6 +1,6 @@
 {
   "name": "notification-panel",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "NotificationPanel for DTCD application",
   "main": "./src/NotificationPanel.js",
   "scripts": {
