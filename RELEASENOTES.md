@@ -1,3 +1,9 @@
+# [0.4.0] - 2022-11-02
+
+### Changed
+
+- Delete notification button paddings
+
 # [0.3.0] - 2022-09-30
 
 ### Changed
